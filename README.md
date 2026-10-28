@@ -33,4 +33,3 @@ cd api
 pip install -r requirements.txt pytest httpx
 python -m pytest -q tests/
 ```
-# proximity_finder_docker
