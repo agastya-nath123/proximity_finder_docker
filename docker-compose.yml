@@ -1,0 +1,22 @@
+# Proximity Search API: start it with   docker compose up --build
+name: proximity-search
+
+services:
+  api:
+    build: ./api
+    image: proximity-api:1.0
+    container_name: proximity-api
+    environment:
+      DATA_DIR: /data
+      TIE_BREAK: ${TIE_BREAK:-id}
+    volumes:
+      - ./data:/data:ro              # CSV + link file from the host, read-only
+    ports:
+      - "${API_PORT:-8000}:8000"     # host port : container port (Uvicorn)
+    networks:
+      - proximity-net
+    restart: unless-stopped
+
+networks:
+  proximity-net:
+    driver: bridge
